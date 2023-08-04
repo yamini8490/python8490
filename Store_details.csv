@@ -1,0 +1,30 @@
+Store,Location,Availability,Category,Store timings,Rating
+Vijetha,Hydernagar,Yes,Grocery,9:00 AM to 10:00PM,5
+Ratnadeep,Hydernagar,Yes,Grocery,9:00 AM to 11:00PM,4
+MedPlus,JNTU,Yes,Medicines,24 hours,3
+Apollo,JNTU,Yes,Medicines,24 hours,2
+Spar,JNTU,No,Grocery,9:00 AM to 10:00PM,1
+QMart,JNTU,No,Grocery,9:00 AM to 10:00PM,5
+QMart,Madhapur,No,Grocery,9:00 AM to 10:00PM,4
+QMart,Gachibowli,Yes,Grocery,9:00 AM to 10:00PM,3
+Spar,Jubileehills,Yes,Grocery,9:00 AM to 10:00PM,2
+QMart,Jubileehills,Yes,Grocery,9:00 AM to 10:00PM,1
+QMart,Begumpet,No,Grocery,9:00 AM to 10:00PM,5
+QMart,yousufguda,Yes,Grocery,9:00 AM to 10:00PM,4
+MedPlus,Jubileehills,Yes,Medicines,9:00 AM to 10:00PM,3
+MedPlus,Begumpet,Yes,Medicines,9:00 AM to 10:00PM,2
+MedPlus,yousufguda,Yes,Medicines,9:00 AM to 10:00PM,1
+MedPlus,BanjaraHills,Yes,Medicines,9:00 AM to 10:00PM,5
+MedPlus,Hafeezpet,Yes,Medicines,9:00 AM to 10:00PM,4
+MedPlus,Kukatpally,Yes,Medicines,9:00 AM to 11:00PM,3
+MedPlus,Kondapur,Yes,Medicines,9:00 AM to 10:00PM,2
+Vijetha,BanjaraHills,Yes,Grocery,9:00 AM to 10:00PM,1
+Ratnadeep,BanjaraHills,Yes,Grocery,9:00 AM to 10:00PM,5
+Vijetha,Hafeezpet,Yes,Grocery,9:00 AM to 10:00PM,4
+Ratnadeep,Hafeezpet,Yes,Grocery,9:00 AM to 10:00PM,3
+Vijetha,Begumpet,Yes,Grocery,9:00 AM to 10:00PM,2
+Ratnadeep,Begumpet,Yes,Grocery,9:00 AM to 10:00PM,1
+Vijetha,yousufguda,Yes,Grocery,9:00 AM to 10:00PM,5
+Ratnadeep,yousufguda,Yes,Grocery,9:00 AM to 10:00PM,4
+Vijetha,Jubileehills,Yes,Grocery,9:00 AM to 10:00PM,3
+Ratnadeep,Jubileehills,Yes,Grocery,9:00 AM to 10:00PM,2
