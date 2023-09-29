@@ -9,7 +9,7 @@ from keras.models import load_model
 model = load_model('model.h5')
 import json
 import random
-intents = json.loads(open('data.json').read())
+intents = json.loads(open('data_feedback.json').read())
 words = pickle.load(open('texts.pkl','rb'))
 classes = pickle.load(open('labels.pkl','rb'))
 
@@ -65,18 +65,30 @@ def chatbot_response(msg):
 
 
 from flask import Flask, render_template, request
+from wtforms import Form, RadioField
 
 app = Flask(__name__)
 app.static_folder = 'static'
 
-@app.route("/")
-def home():
-    return render_template("index.html")
 
-@app.route("/get")
+@app.route("/", methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        if request.form.get('action1') == 'VALUE1':
+            pass # do something
+        elif  request.form.get('action2') == 'VALUE2':
+            pass # do something else
+        else:
+            pass # unknown
+    elif request.method == 'GET':
+        get_bot_response()
+    
+      
 def get_bot_response():
-    userText = request.args.get('msg')
-    return chatbot_response(userText)
+        userText = request.args.get('msg')
+        return chatbot_response(userText)
+        return render_template('index.html', form=form)
+
 
 
 if __name__ == "__main__":
