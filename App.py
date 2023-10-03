@@ -1,4 +1,5 @@
 # %load App.py
+# %load App.py
 import nltk
 nltk.download('popular')
 from nltk.stem import WordNetLemmatizer
@@ -50,108 +51,89 @@ def predict_class(sentence, model):
     for r in results:
         return_list.append({"intent": classes[r[0]], "probability": str(r[1])})
     return return_list
-
+tags=[]
+tags.append("none")
 def getResponse(ints, intents_json):
     tag = ints[0]['intent']
     list_of_intents = intents_json['intents']
+    j = tagger.value
+    j = j+1
+    tags.append(tag)
+    index = counter.value
     for i in list_of_intents:
-        if(i['tag']== tag):
+        if((j-1 > 0) and (tags[j-1] == "feedback")):
+            print("2")
+            result = "Thanks for the feedback,Please let us know if case needs to be provided"
+        elif (i['tag'] == tag):
+            print("1")
             result = random.choice(i['responses'])
-            break
+    if(tags[j-1] == "feedback"):
+        userText = request.args.get('msg')
+        users.append({'feedback':userText})
+        df=pd.read_csv('feedback.csv')
+        df.set_index('index',inplace=True)
+        df.at[index-1,'feedback']=userText
+        index=index +1 
+        df.to_csv('feedback.csv')
+        counter.value += 1
+    elif(tags[j-1] == "case"):
+        userText = request.args.get('msg')
+        users.append({'caseneeded':userText})
+        df=pd.read_csv('feedback.csv')
+        df.set_index('index',inplace=True)
+        df.at[index-2,'caseneeded']=userText
+        index=index +1 
+        df.to_csv('feedback.csv')
+        counter.value += 1
+    tagger.value += 1
     return result
 
 def chatbot_response(msg):
     ints = predict_class(msg, model)
     res = getResponse(ints, intents)
     return res
-def chatbot_click():
-    #ints = predict_class(msg, model)
-    res = "Please give your valueble feedback"
-    return res
-def get_bot_click():
-    userText = request.args.get('msg')
-    users.append({'feedback':userText})
-    df=df.from_records(users)
-    df.to_csv('feedback.csv')
-    print(df.head())
-    return chatbot_response(userText)
 from flask import Flask, render_template, request, jsonify
 from multiprocessing import Value
-df=pd.DataFrame(columns=['index','productid','feedback'])
+df=pd.DataFrame(columns=['index','productid','feedback','caseneeded'])
 df.to_csv('feedback.csv')
 counter = Value('i', 0)
+tagger = Value('i',0)
 
 
 app = Flask(__name__)
 users=[]
 
 app.static_folder = 'static'
-print(users)
-#df2=df.append[users]
-
 @app.route("/")
 def home():
     return render_template("index.html")
-#@app.route("/get")
-#def get_bot_response():
-#    df = pd.DataFrame(columns=['productid', 'feedback','sentiment'])
-#    index =0
-#    userText = request.args.get('msg')
-#    users.append({'feedback':userText})
-#    #df=df.from_records(users)
-#    df.at[index,'feedback']=userText
-#    #index=index +1 
-#    df.to_csv('feedback.csv')
-#    print(df.head())
-#    return chatbot_response(userText)
+@app.route("/get")
+def get_bot_response():
+    userText = request.args.get('msg')
+    return chatbot_response(userText)
 
 
 @app.route("/", methods=['POST'])
-@app.route("/get")
+#@app.route("/get")
 def index():
     if request.method == 'POST':
-        
         index = counter.value
-        #print(index)
         if request.form.get('action1') == 'creditcard':
             prod='creditcard'# do something
-            #if request.method == "get" :
-            #    pass
-            #else:
-            #return chatbot_response()
         elif  request.form.get('action2') == 'loan':
             prod='loan' # do something else
-            
         else:
             pass
-            
         df=pd.read_csv('feedback.csv')
         df.set_index('index',inplace=True)
-        #print(df.head())
         df.at[index,'productid']=prod
         df.to_csv('feedback.csv')
         counter.value += 1
     else:
-        #df = pd.DataFrame(columns=['productid', 'feedback','sentiment'])
-        
-        index = counter.value
-        #print(index)
-        #print("in get")
-        userText = request.args.get('msg')
-        users.append({'feedback':userText})
-        #df=df.from_records(users)
-        df=pd.read_csv('feedback.csv')
-        df.set_index('index',inplace=True)
-        #print(df.head())
-        df.at[index-1,'feedback']=userText
-        #index=index +1 
-        df.to_csv('feedback.csv')
-        #print(df.head())
-        counter.value += 1
-        return chatbot_response(userText)
-    
+        pass
     return render_template('index.html')
-
+    
+   
 #print(users)
 if __name__ == "__main__":
     
